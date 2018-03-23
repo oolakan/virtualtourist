@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="7u5-Uc-Eja">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="d77-zd-IC3">
-                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                             </mapView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -34,12 +34,11 @@
                     <navigationItem key="navigationItem" id="CEv-Q9-oyR"/>
                     <connections>
                         <outlet property="mapView" destination="d77-zd-IC3" id="d9C-K3-wkh"/>
-                        <segue destination="a0s-O8-TBs" kind="show" id="aE2-vl-KiS"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="236" y="106.59670164917542"/>
+            <point key="canvasLocation" x="212" y="-35"/>
         </scene>
         <!--Photo Album View Controller-->
         <scene sceneID="pw9-bG-7hM">
@@ -50,13 +49,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="3K0-os-Mds">
-                                <rect key="frame" x="0.0" y="64" width="375" height="166"/>
+                                <rect key="frame" x="0.0" y="44" width="375" height="142"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="166" id="pDH-qw-Fgm"/>
+                                    <constraint firstAttribute="height" constant="142" id="sMw-2L-6SE"/>
                                 </constraints>
                             </mapView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="3ZG-zk-HFu">
-                                <rect key="frame" x="0.0" y="227" width="375" height="400"/>
+                                <rect key="frame" x="0.0" y="183" width="375" height="444"/>
                                 <color key="backgroundColor" red="0.75406885150000003" green="0.75408679249999999" blue="0.75407713649999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="WPT-WF-elM">
                                     <size key="itemSize" width="123" height="99"/>
@@ -99,24 +98,48 @@
                                     <action selector="getNewCollection:" destination="a0s-O8-TBs" eventType="touchUpInside" id="k07-zp-ZIC"/>
                                 </connections>
                             </button>
+                            <navigationBar contentMode="left" translucent="NO" backIndicatorImage="back" translatesAutoresizingMaskIntoConstraints="NO" id="IEJ-Q3-HhV">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="EQO-Ok-CJl"/>
+                                </constraints>
+                                <color key="barTintColor" red="0.92624729871749878" green="0.93937283754348755" blue="0.97473925352096558" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <textAttributes key="titleTextAttributes">
+                                    <offsetWrapper key="textShadowOffset" horizontal="0.0" vertical="0.0"/>
+                                </textAttributes>
+                                <items>
+                                    <navigationItem leftItemsSupplementBackButton="YES" id="4jn-SK-oA5">
+                                        <barButtonItem key="backBarButtonItem" title="back" id="4b2-Xh-KaX"/>
+                                        <barButtonItem key="leftBarButtonItem" title="Back" id="mCS-Xs-mUh">
+                                            <connections>
+                                                <segue destination="BYZ-38-t0r" kind="show" id="wkx-h7-sMH"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="rEe-qQ-tyv" firstAttribute="bottom" secondItem="Riq-08-UUB" secondAttribute="bottom" id="3CZ-sA-NuL"/>
+                            <constraint firstItem="IEJ-Q3-HhV" firstAttribute="top" secondItem="zMM-qZ-Yic" secondAttribute="top" id="4WC-ji-9ZT"/>
                             <constraint firstItem="3ZG-zk-HFu" firstAttribute="leading" secondItem="Riq-08-UUB" secondAttribute="leading" id="Ckd-DX-Oh3"/>
-                            <constraint firstItem="3K0-os-Mds" firstAttribute="leading" secondItem="Riq-08-UUB" secondAttribute="leading" id="FiM-kG-SU7"/>
+                            <constraint firstItem="3K0-os-Mds" firstAttribute="top" secondItem="IEJ-Q3-HhV" secondAttribute="bottom" id="GLy-cF-vyl"/>
+                            <constraint firstItem="3K0-os-Mds" firstAttribute="trailing" secondItem="Riq-08-UUB" secondAttribute="trailing" id="OAd-l5-laS"/>
                             <constraint firstItem="rEe-qQ-tyv" firstAttribute="top" secondItem="3ZG-zk-HFu" secondAttribute="bottom" id="Sgc-lr-epW"/>
-                            <constraint firstItem="3K0-os-Mds" firstAttribute="top" secondItem="Riq-08-UUB" secondAttribute="top" id="Wt7-82-jbt"/>
+                            <constraint firstItem="IEJ-Q3-HhV" firstAttribute="leading" secondItem="Riq-08-UUB" secondAttribute="leading" id="UXW-T7-f4v"/>
                             <constraint firstItem="rEe-qQ-tyv" firstAttribute="trailing" secondItem="Riq-08-UUB" secondAttribute="trailing" id="Y0D-CY-Kip"/>
                             <constraint firstItem="rEe-qQ-tyv" firstAttribute="leading" secondItem="Riq-08-UUB" secondAttribute="leading" id="Y0v-8q-cRd"/>
+                            <constraint firstItem="IEJ-Q3-HhV" firstAttribute="trailing" secondItem="Riq-08-UUB" secondAttribute="trailing" id="cNb-GX-pti"/>
                             <constraint firstItem="3ZG-zk-HFu" firstAttribute="top" secondItem="Riq-08-UUB" secondAttribute="top" constant="163" id="dNp-61-Jg3"/>
+                            <constraint firstItem="3K0-os-Mds" firstAttribute="leading" secondItem="Riq-08-UUB" secondAttribute="leading" id="f9D-qj-Ke0"/>
                             <constraint firstItem="Riq-08-UUB" firstAttribute="bottom" secondItem="3ZG-zk-HFu" secondAttribute="bottom" constant="40" id="iAG-jL-5ao"/>
-                            <constraint firstItem="3K0-os-Mds" firstAttribute="trailing" secondItem="Riq-08-UUB" secondAttribute="trailing" id="qVc-jm-zYw"/>
                             <constraint firstItem="3ZG-zk-HFu" firstAttribute="trailing" secondItem="Riq-08-UUB" secondAttribute="trailing" id="ugc-hP-h7I"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Riq-08-UUB"/>
                     </view>
                     <connections>
+                        <outlet property="collectionBtn" destination="rEe-qQ-tyv" id="3QI-LE-zuI"/>
                         <outlet property="flowLayoutMeme" destination="zMM-qZ-Yic" id="aGQ-HZ-7Hi"/>
                         <outlet property="mapView" destination="3K0-os-Mds" id="Kia-2c-XOG"/>
                         <outlet property="photoCollectionView" destination="3ZG-zk-HFu" id="DgU-b6-kzx"/>
@@ -124,25 +147,10 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zXe-PA-Aor" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="944.79999999999995" y="106.59670164917542"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="JST-C1-Gwa">
-            <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="yOO-iV-J5u" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="7u5-Uc-Eja" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="cnK-63-uFU">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="Pr9-0k-RFh"/>
-                    </connections>
-                </navigationController>
-            </objects>
-            <point key="canvasLocation" x="-489" y="107"/>
+            <point key="canvasLocation" x="1024.8" y="-320.68965517241384"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="back" width="58" height="44"/>
+    </resources>
 </document>

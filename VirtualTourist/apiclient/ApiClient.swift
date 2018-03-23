@@ -213,17 +213,13 @@ class ApiClient {
                 displayError("Cannot find key '\(Constants.FlickrResponseKeys.Photo)' in \(photosDictionary)")
                 return
             }
-            var photos = [[String: AnyObject]]()
-            //get the first twenty elements
-            for i in 0 ... 20 {
-                photos.append(photosArray[i])
-            }
+            
             print(photosArray)
                 if let error = error {
                     completionHandler(.failure(error))
                 }
                 else {
-                    completionHandler(.success(photos))
+                    completionHandler(.success(photosArray))
                 }
         }
         // start the task!

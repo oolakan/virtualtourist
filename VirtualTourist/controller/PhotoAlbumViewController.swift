@@ -16,6 +16,7 @@ class PhotoAlbumViewController: UIViewController, MKMapViewDelegate, UICollectio
     @IBOutlet weak var photoCollectionView: UICollectionView!
     @IBOutlet weak var mapView: MKMapView!
     
+    @IBOutlet weak var collectionBtn: UIButton!
     var apiClient: ApiClient!
     var photos: [PhotoEntity]!
     
@@ -83,14 +84,15 @@ class PhotoAlbumViewController: UIViewController, MKMapViewDelegate, UICollectio
     }
 
     fileprivate func getImages() {
-        self.displayOverlay()
+        self.collectionBtn.isEnabled = false
+     
         apiClient = ApiClient()
         apiClient.getFlickrImages(pin.latitude, pin.longitude, completionHandler: {result in
             switch result {
             case .success(let res):
                 print(res)
-                 self.dismiss(animated: true, completion: nil)
-                performUIUpdatesOnMain {
+              
+            
                     if (res.count > 0) {
                         print("Images available")
                         for _res in res {
@@ -106,20 +108,24 @@ class PhotoAlbumViewController: UIViewController, MKMapViewDelegate, UICollectio
                                     photo.title = photoTitle
                                     photo.medialUrl = imageUrlString
                                     photo.pin = self.pin
-                                    PersistenceService.saveContext()
+                                    performUIUpdatesOnMain {
+                                            PersistenceService.saveContext()
+                                    }
                                 }
                             }
                         }
+                        self.collectionBtn.isEnabled = true
                        
                         self.photoCollectionView.reloadData()
                     } else {
-                       
+                        self.collectionBtn.isEnabled = true
                         print("Images not available")
                     }
-                }
+                
             case .failure(let err):
                 print(err)
-                self.dismiss(animated: true, completion: nil)
+                self.collectionBtn.isEnabled = true
+               // self.dismiss(animated: true, completion: nil)
             }
         })
     }
@@ -140,18 +146,7 @@ class PhotoAlbumViewController: UIViewController, MKMapViewDelegate, UICollectio
             showAlert(title: "Message", message: "No internet connection")
         }
     }
-    
-    func displayOverlay()  {
-        let alert = UIAlertController(title: nil, message: "Downloading...", preferredStyle: .alert)
-        let loadingIndicator = UIActivityIndicatorView(frame: CGRect(x: 10, y: 5, width: 50, height: 50))
-        loadingIndicator.hidesWhenStopped = true
-        loadingIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
-        loadingIndicator.startAnimating();
-        
-        alert.view.addSubview(loadingIndicator)
-        present(alert, animated: true, completion: nil)
-    }
-    
+ 
     func showAlert(title: String, message: String)  {
         let actionSheetController = UIAlertController (title: title, message: message, preferredStyle: UIAlertControllerStyle.actionSheet)
         
