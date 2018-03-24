@@ -51,36 +51,39 @@
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="3K0-os-Mds">
                                 <rect key="frame" x="0.0" y="44" width="375" height="142"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="142" id="sMw-2L-6SE"/>
+                                    <constraint firstAttribute="height" constant="142" id="HVu-Qt-6Lj"/>
                                 </constraints>
                             </mapView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="3ZG-zk-HFu">
                                 <rect key="frame" x="0.0" y="183" width="375" height="444"/>
                                 <color key="backgroundColor" red="0.75406885150000003" green="0.75408679249999999" blue="0.75407713649999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="444" id="bu5-gu-vMc"/>
+                                </constraints>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="WPT-WF-elM">
-                                    <size key="itemSize" width="123" height="99"/>
+                                    <size key="itemSize" width="93" height="83"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="photocell" id="yPy-tE-gY3" customClass="PhotoCollectionViewCell" customModule="VirtualTourist" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="123" height="99"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="93" height="83"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                            <rect key="frame" x="0.0" y="0.0" width="123" height="99"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="93" height="83"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="nQQ-yO-65F">
-                                                    <rect key="frame" x="3" y="3" width="117" height="93"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="93" height="83"/>
                                                 </imageView>
                                             </subviews>
                                         </view>
                                         <constraints>
-                                            <constraint firstItem="nQQ-yO-65F" firstAttribute="top" secondItem="yPy-tE-gY3" secondAttribute="top" constant="3" id="J3d-ny-z7S"/>
-                                            <constraint firstAttribute="trailing" secondItem="nQQ-yO-65F" secondAttribute="trailing" constant="3" id="KNL-1e-TkZ"/>
-                                            <constraint firstAttribute="bottom" secondItem="nQQ-yO-65F" secondAttribute="bottom" constant="3" id="XJI-vv-xAW"/>
-                                            <constraint firstItem="nQQ-yO-65F" firstAttribute="leading" secondItem="yPy-tE-gY3" secondAttribute="leading" constant="3" id="qa8-8S-5bD"/>
+                                            <constraint firstItem="nQQ-yO-65F" firstAttribute="leading" secondItem="yPy-tE-gY3" secondAttribute="leading" id="3pM-tn-fJP"/>
+                                            <constraint firstAttribute="bottom" secondItem="nQQ-yO-65F" secondAttribute="bottom" id="63G-Rq-wm2"/>
+                                            <constraint firstAttribute="trailing" secondItem="nQQ-yO-65F" secondAttribute="trailing" id="s16-8f-H6k"/>
+                                            <constraint firstItem="nQQ-yO-65F" firstAttribute="top" secondItem="yPy-tE-gY3" secondAttribute="top" id="tMi-Wu-rWn"/>
                                         </constraints>
                                         <connections>
                                             <outlet property="image" destination="nQQ-yO-65F" id="BGi-kZ-acG"/>
@@ -91,7 +94,7 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rEe-qQ-tyv">
                                 <rect key="frame" x="0.0" y="627" width="375" height="40"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="oT9-W6-Mlh"/>
+                                    <constraint firstAttribute="height" constant="40" id="cdA-fc-Grf"/>
                                 </constraints>
                                 <state key="normal" title="New Collection"/>
                                 <connections>
@@ -99,9 +102,9 @@
                                 </connections>
                             </button>
                             <navigationBar contentMode="left" translucent="NO" backIndicatorImage="back" translatesAutoresizingMaskIntoConstraints="NO" id="IEJ-Q3-HhV">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="5" width="375" height="50"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="EQO-Ok-CJl"/>
+                                    <constraint firstAttribute="height" constant="50" id="HcD-Qt-ntd"/>
                                 </constraints>
                                 <color key="barTintColor" red="0.92624729871749878" green="0.93937283754348755" blue="0.97473925352096558" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <textAttributes key="titleTextAttributes">
@@ -121,26 +124,24 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="rEe-qQ-tyv" firstAttribute="bottom" secondItem="Riq-08-UUB" secondAttribute="bottom" id="3CZ-sA-NuL"/>
-                            <constraint firstItem="IEJ-Q3-HhV" firstAttribute="top" secondItem="zMM-qZ-Yic" secondAttribute="top" id="4WC-ji-9ZT"/>
-                            <constraint firstItem="3ZG-zk-HFu" firstAttribute="leading" secondItem="Riq-08-UUB" secondAttribute="leading" id="Ckd-DX-Oh3"/>
-                            <constraint firstItem="3K0-os-Mds" firstAttribute="top" secondItem="IEJ-Q3-HhV" secondAttribute="bottom" id="GLy-cF-vyl"/>
-                            <constraint firstItem="3K0-os-Mds" firstAttribute="trailing" secondItem="Riq-08-UUB" secondAttribute="trailing" id="OAd-l5-laS"/>
-                            <constraint firstItem="rEe-qQ-tyv" firstAttribute="top" secondItem="3ZG-zk-HFu" secondAttribute="bottom" id="Sgc-lr-epW"/>
-                            <constraint firstItem="IEJ-Q3-HhV" firstAttribute="leading" secondItem="Riq-08-UUB" secondAttribute="leading" id="UXW-T7-f4v"/>
-                            <constraint firstItem="rEe-qQ-tyv" firstAttribute="trailing" secondItem="Riq-08-UUB" secondAttribute="trailing" id="Y0D-CY-Kip"/>
-                            <constraint firstItem="rEe-qQ-tyv" firstAttribute="leading" secondItem="Riq-08-UUB" secondAttribute="leading" id="Y0v-8q-cRd"/>
-                            <constraint firstItem="IEJ-Q3-HhV" firstAttribute="trailing" secondItem="Riq-08-UUB" secondAttribute="trailing" id="cNb-GX-pti"/>
-                            <constraint firstItem="3ZG-zk-HFu" firstAttribute="top" secondItem="Riq-08-UUB" secondAttribute="top" constant="163" id="dNp-61-Jg3"/>
-                            <constraint firstItem="3K0-os-Mds" firstAttribute="leading" secondItem="Riq-08-UUB" secondAttribute="leading" id="f9D-qj-Ke0"/>
-                            <constraint firstItem="Riq-08-UUB" firstAttribute="bottom" secondItem="3ZG-zk-HFu" secondAttribute="bottom" constant="40" id="iAG-jL-5ao"/>
-                            <constraint firstItem="3ZG-zk-HFu" firstAttribute="trailing" secondItem="Riq-08-UUB" secondAttribute="trailing" id="ugc-hP-h7I"/>
+                            <constraint firstItem="IEJ-Q3-HhV" firstAttribute="leading" secondItem="Riq-08-UUB" secondAttribute="leading" id="9Cl-dm-hAZ"/>
+                            <constraint firstItem="IEJ-Q3-HhV" firstAttribute="trailing" secondItem="Riq-08-UUB" secondAttribute="trailing" id="A8B-Fq-Wev"/>
+                            <constraint firstItem="IEJ-Q3-HhV" firstAttribute="top" secondItem="zMM-qZ-Yic" secondAttribute="top" constant="5" id="Clh-nn-Wd5"/>
+                            <constraint firstItem="3K0-os-Mds" firstAttribute="top" secondItem="Riq-08-UUB" secondAttribute="top" constant="24" id="KKu-YC-Ggk"/>
+                            <constraint firstItem="rEe-qQ-tyv" firstAttribute="leading" secondItem="Riq-08-UUB" secondAttribute="leading" id="Nqx-Ec-WGh"/>
+                            <constraint firstItem="rEe-qQ-tyv" firstAttribute="trailing" secondItem="Riq-08-UUB" secondAttribute="trailing" id="TQk-tO-IFr"/>
+                            <constraint firstItem="3K0-os-Mds" firstAttribute="trailing" secondItem="Riq-08-UUB" secondAttribute="trailing" id="YSQ-fb-GQP"/>
+                            <constraint firstItem="3ZG-zk-HFu" firstAttribute="leading" secondItem="Riq-08-UUB" secondAttribute="leading" id="dUE-tv-fYu"/>
+                            <constraint firstItem="3K0-os-Mds" firstAttribute="leading" secondItem="Riq-08-UUB" secondAttribute="leading" id="nek-MX-A2O"/>
+                            <constraint firstItem="3ZG-zk-HFu" firstAttribute="top" secondItem="IEJ-Q3-HhV" secondAttribute="bottom" constant="128" id="sRc-oX-B9z"/>
+                            <constraint firstItem="3ZG-zk-HFu" firstAttribute="trailing" secondItem="Riq-08-UUB" secondAttribute="trailing" id="w02-8d-UZx"/>
+                            <constraint firstItem="rEe-qQ-tyv" firstAttribute="top" secondItem="3ZG-zk-HFu" secondAttribute="bottom" id="zFg-NF-CYe"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Riq-08-UUB"/>
                     </view>
                     <connections>
                         <outlet property="collectionBtn" destination="rEe-qQ-tyv" id="3QI-LE-zuI"/>
-                        <outlet property="flowLayoutMeme" destination="zMM-qZ-Yic" id="aGQ-HZ-7Hi"/>
+                        <outlet property="flowLayout" destination="3ZG-zk-HFu" id="auC-sc-aPY"/>
                         <outlet property="mapView" destination="3K0-os-Mds" id="Kia-2c-XOG"/>
                         <outlet property="photoCollectionView" destination="3ZG-zk-HFu" id="DgU-b6-kzx"/>
                     </connections>
@@ -151,6 +152,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="back" width="58" height="44"/>
+        <image name="back" width="40" height="40"/>
     </resources>
 </document>

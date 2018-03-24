@@ -71,6 +71,42 @@ class TravelLocationMapViewController: UIViewController, MKMapViewDelegate, CLLo
         PersistenceService.saveContext()
         let _pin = PinAnnotation(pin: pin, coordinate: annotation.coordinate)
         self.mapView.addAnnotation(_pin)
+        getImages(pin)
+    }
+    //start downloading images
+    fileprivate func getImages(_ pin: PinEntity) {
+        apiClient = ApiClient()
+        apiClient.getFlickrImages(pin.latitude, pin.longitude, completionHandler: {result in
+            switch result {
+            case .success(let res):
+                print(res)
+                if (res.count > 0) {
+                    print("Images available")
+                    for _res in res {
+                        let photoDictionary = _res as [String: AnyObject]
+                        let photoTitle = photoDictionary[Constants.FlickrResponseKeys.Title] as? String
+                        if let imageUrlString = photoDictionary[Constants.FlickrResponseKeys.MediumURL] as? String {
+                            let imageURL = URL(string: imageUrlString)
+                            if let imageData = try? Data(contentsOf: imageURL!) {
+                                let photo = PhotoEntity(context: PersistenceService.context)
+                                photo.image = imageData as NSData
+                                photo.title = photoTitle
+                                photo.medialUrl = imageUrlString
+                                photo.pin = pin
+                                performUIUpdatesOnMain {
+                                    PersistenceService.saveContext()
+                                }
+                            }
+                        }
+                    }
+                } else {
+                    print("Images not available")
+                }
+                
+            case .failure(let err):
+                print(err)
+            }
+        })
     }
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView)

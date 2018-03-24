@@ -10,8 +10,8 @@ import UIKit
 import MapKit
 import CoreLocation
 import CoreData
-class PhotoAlbumViewController: UIViewController, MKMapViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource{
-    @IBOutlet weak var flowLayoutMeme: UICollectionViewFlowLayout!
+class PhotoAlbumViewController: UIViewController, MKMapViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource {
+    @IBOutlet weak var flowLayout: UICollectionViewFlowLayout!
     
     @IBOutlet weak var photoCollectionView: UICollectionView!
     @IBOutlet weak var mapView: MKMapView!
@@ -51,6 +51,7 @@ class PhotoAlbumViewController: UIViewController, MKMapViewDelegate, UICollectio
         }
     }
     
+  
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.photos.count
     }
@@ -78,9 +79,9 @@ class PhotoAlbumViewController: UIViewController, MKMapViewDelegate, UICollectio
         // Do any additional setup after loading the view.
         let space:CGFloat = 3.0
         let dimension = (view.frame.size.width - (2 * space)) / 3.0
-        flowLayoutMeme.minimumInteritemSpacing = space
-        flowLayoutMeme.minimumLineSpacing = space
-        flowLayoutMeme.itemSize = CGSize(width: dimension, height: dimension)
+        flowLayout.minimumInteritemSpacing = space
+        flowLayout.minimumLineSpacing = space
+        flowLayout.itemSize = CGSize(width: dimension, height: dimension)
     }
 
     fileprivate func getImages() {
