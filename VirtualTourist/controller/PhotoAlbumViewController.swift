@@ -19,8 +19,11 @@ class PhotoAlbumViewController: UIViewController, MKMapViewDelegate, UICollectio
     @IBOutlet weak var collectionBtn: UIButton!
     var apiClient: ApiClient!
     var photos: [PhotoEntity]!
+    var photo: PhotoEntity!
     
     var pin: PinEntity!
+    var photoResults: [[String: AnyObject]] = [[String: AnyObject]]()
+    var resultCount: Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,6 +40,7 @@ class PhotoAlbumViewController: UIViewController, MKMapViewDelegate, UICollectio
         fetchRequest.predicate = predicate
         let photos = try! PersistenceService.context.fetch(fetchRequest)
         self.photos = photos
+        self.resultCount = self.photos.count
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -51,30 +55,40 @@ class PhotoAlbumViewController: UIViewController, MKMapViewDelegate, UICollectio
         }
     }
     
-  
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.photos.count
+        return self.photoResults.count > 0 ? self.photoResults.count : self.photos.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "photocell", for: indexPath as IndexPath) as? PhotoCollectionViewCell else {
             return UICollectionViewCell()
         }
-        let photo = self.photos[indexPath.row].image
-        cell.image.image = UIImage(data: photo! as Data)
+        if self.photoResults.count > 0 {
+            cell.updateUI(photoRes: self.photoResults[indexPath.row], pin: pin)
+        }
+        else {
+            cell.image.image = UIImage(data: self.photos[indexPath.row].image! as Data)
+        }
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("selected")
-        self.photos.remove(at: indexPath.row)
-        self.photoCollectionView.deleteItems(at: [indexPath])
-        let photoToDelete = self.photos[indexPath.row]
-        PersistenceService.context.delete(photoToDelete)
-        PersistenceService.saveContext()
-        photoCollectionView.reloadData()
+                if self.photoResults.count > 0 {
+                    self.photoResults.remove(at: indexPath.row)
+                     photoCollectionView.reloadData()
+                }
+                else {
+                    self.photos.remove(at: indexPath.row)
+                    self.resultCount = self.photos.count
+                    self.photoCollectionView.deleteItems(at: [indexPath])
+                    let photoToDelete = self.photos[indexPath.row]
+                    PersistenceService.context.delete(photoToDelete)
+                    PersistenceService.saveContext()
+                    photoCollectionView.reloadData()
+         }
     }
-
+    
     fileprivate func configureCellSize() {
         // Do any additional setup after loading the view.
         let space:CGFloat = 3.0
@@ -83,63 +97,52 @@ class PhotoAlbumViewController: UIViewController, MKMapViewDelegate, UICollectio
         flowLayout.minimumLineSpacing = space
         flowLayout.itemSize = CGSize(width: dimension, height: dimension)
     }
-
+    
     fileprivate func getImages() {
-        self.collectionBtn.isEnabled = false
-     
+        performUIUpdatesOnMain {
+            self.collectionBtn.isEnabled = false
+        }
         apiClient = ApiClient()
         apiClient.getFlickrImages(pin.latitude, pin.longitude, completionHandler: {result in
             switch result {
             case .success(let res):
                 print(res)
-              
-            
-                    if (res.count > 0) {
-                        print("Images available")
-                        for _res in res {
-                            let photoDictionary = _res as [String: AnyObject]
-                            let photoTitle = photoDictionary[Constants.FlickrResponseKeys.Title] as? String
-                            /* GUARD: Does our photo have a key for 'url_m'? */
-                            if let imageUrlString = photoDictionary[Constants.FlickrResponseKeys.MediumURL] as? String {
-                                // if an image exists at the url, set the image and title
-                                let imageURL = URL(string: imageUrlString)
-                                if let imageData = try? Data(contentsOf: imageURL!) {
-                                    let photo = PhotoEntity(context: PersistenceService.context)
-                                    photo.image = imageData as NSData
-                                    photo.title = photoTitle
-                                    photo.medialUrl = imageUrlString
-                                    photo.pin = self.pin
-                                    performUIUpdatesOnMain {
-                                            PersistenceService.saveContext()
-                                    }
-                                }
-                            }
-                        }
-                        self.collectionBtn.isEnabled = true
-                       
-                        self.photoCollectionView.reloadData()
-                    } else {
-                        self.collectionBtn.isEnabled = true
-                        print("Images not available")
+                if res.count > 0 {
+                    for _res in res {
+                        self.photoResults.append(_res)
                     }
-                
+                    self.resultCount = self.photoResults.count
+                    performUIUpdatesOnMain {
+                        self.collectionBtn.isEnabled = true
+                        self.photoCollectionView.reloadData()
+                    }
+                    print("Images available")
+                }
+                    
+                else {
+                    print("Images not available")
+                }
             case .failure(let err):
                 print(err)
-                self.collectionBtn.isEnabled = true
-               // self.dismiss(animated: true, completion: nil)
+                performUIUpdatesOnMain {
+                    self.collectionBtn.isEnabled = true
+                }
             }
         })
     }
     
     @IBAction func getNewCollection(_ sender: Any) {
-        let photos = NSBatchDeleteRequest(fetchRequest: NSFetchRequest<NSFetchRequestResult>(entityName: "Photo"))
+        let fetchRequest: NSFetchRequest<PhotoEntity> = PhotoEntity.fetchRequest()
+        let predicate = NSPredicate(format: "pin == %@", pin)
+        fetchRequest.predicate = predicate
+        let photos = NSBatchDeleteRequest(fetchRequest: fetchRequest as! NSFetchRequest<NSFetchRequestResult>)
         do {
             try PersistenceService.context.execute(photos)
-            self.photoCollectionView.reloadData()
         }
         catch {
             print(error)
         }
+        self.photoResults.removeAll()//remove data from array if available
         if (InternetConnection.isConnectedToNetwork()){
             getImages()
         }
@@ -147,7 +150,7 @@ class PhotoAlbumViewController: UIViewController, MKMapViewDelegate, UICollectio
             showAlert(title: "Message", message: "No internet connection")
         }
     }
- 
+    
     func showAlert(title: String, message: String)  {
         let actionSheetController = UIAlertController (title: title, message: message, preferredStyle: UIAlertControllerStyle.actionSheet)
         
@@ -156,3 +159,4 @@ class PhotoAlbumViewController: UIViewController, MKMapViewDelegate, UICollectio
         self.present(actionSheetController, animated: true, completion: nil)
     }
 }
+
